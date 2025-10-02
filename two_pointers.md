@@ -134,3 +134,22 @@ def longest_one(nums: List[int]) -> int:
         ans = max(ans, right - left)
     return ans
 ```
+7. *Maximum Points You Can Obtain from Cards*
+- There are several cards arranged in a row, and each card has an associated number of points. The points are given in the integer array cardPoints.
+
+- In one step, you can take one card from the beginning or from the end of the row. You have to take exactly k cards.
+
+- Your score is the sum of the points of the cards you have taken. Given the integer array cardPoints and the integer k, return the maximum score you can obtain.
+Example1: 
+`cardPoints =[100,40,17,9,73,75]`
+`k = 3`
+`output = 248`
+```python
+def maxScore(nums: List[int], k: int) -> int:
+    res = total = sum(nums[:k])
+    for i in range(1, k+1):
+        total = total - nums[k-i] + nums[-i]
+        res = max(res, total)
+
+    return res
+```
