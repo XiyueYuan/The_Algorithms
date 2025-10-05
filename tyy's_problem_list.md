@@ -61,6 +61,30 @@ def minSizeSubarray(nums: List[int], target: int) -> int:
             ans = min(ans, i - left + 1)
     return k * len(nums) + ans if ans != float('inf') else -1
 ```
+3. *3643: Flip Square Submatrix Vertically*
+- You are given an m x n integer matrix grid, and three integers x, y, and k. 
+The integers x and y represent the row and column indices of the top-left corner of a square submatrix and the integer k represents the size (side length) of the square submatrix.
+Your task is to flip the submatrix by reversing the order of its rows vertically. Return the updated matrix.
 
+Example1:
+`Input: grid = [[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]], x = 1, y = 0, k = 3`
+`Output: [[1,2,3,4],[13,14,15,8],[9,10,11,12],[5,6,7,16]]`
+
+<p align="center">
+<img src= 'gridexmdrawio.png'
+width="350"/>
+</p>
+
+> Two Pointers again, but vertically
+```python
+def reverseSubmatrix(grid: List[List[int]], x: int, y: int, k: int) -> List[List[int]]:
+    l, r = x, x + k - 1
+    while l < r:
+        for i in range(y, y + k):
+            grid[l][i], grid[r][i] = grid[r][i], grid[l][i]
+        r -= 1
+        l += 1
+    return grid
+```
 
 
