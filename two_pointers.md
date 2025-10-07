@@ -175,3 +175,36 @@ def maxSubarrayLength(nums: List[int], k: int) -> int:
         res = max(res, i - left + 1)
     return res
 ```
+9. __two pointers moving in the same direction & group traversal__
+- pattern & format
+```python
+n = len(n)
+i = 0
+while i < n:
+    start = i
+    while i < n and ...:
+        i += 1
+```
+Example: 
+- Given a binary string s, return true if the longest contiguous segment of 1's is strictly longer than the longest contiguous segment of 0's in s, or return false otherwise.
+
+- For example, in s = "110100010" the longest continuous segment of 1s has length 2, and the longest continuous segment of 0s has length 3.
+- Note that if there are no 0's, then the longest continuous segment of 0's is considered to have a length 0. The same applies if there is no 1's.
+```python
+# The structure is very clear
+def checkZeroOnes(s: str) -> bool:
+        one, zero = 0, 0
+        i = 0
+        while i < len(s):
+            if s[i] == '1':
+                start = i
+                while i < len(s) and s[start] == s[i]:
+                    i += 1
+                one = max(one, i - start)
+            else:
+                start = i 
+                while i < len(s) and s[start] == s[i]:
+                    i += 1
+                zero = max(zero, i - start)
+        return one > zero
+```
