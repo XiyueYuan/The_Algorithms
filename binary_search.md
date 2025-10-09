@@ -94,3 +94,19 @@ def binarysearch(nums, target):
             left = mid + 1
     return left
 ```
+##### Or simply use `bisect`
+```python
+import bisect
+nums = [6, 8, 9, 12, 17]
+k = 7
+# bisect has bisect.left and bisect.right
+# bisect.bisect means bisect.right by default
+
+res1 = bisect.left(nums, k) 
+# Output: 1
+# return the first index `i` nums[i] < target
+
+res2 = bisect.right(nums, k)
+# Output: 2
+# return the first index `i` nums[i] <= target
+```

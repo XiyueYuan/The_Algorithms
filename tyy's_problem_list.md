@@ -87,4 +87,37 @@ def reverseSubmatrix(grid: List[List[int]], x: int, y: int, k: int) -> List[List
     return grid
 ```
 
+##### Binary Search 
+1. *34: Find First and Last Position of Element in Sorted Array*
+- Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+- If target is not found in the array, return `[-1, -1]`.
+
+> Binary Search then expand, good question not hard, can be used as starter
+
+Example: 
+`Input: nums = [5,7,7,8,8,10], target = 8`
+`Output: [3,4]`
+Example 2:
+`Input: nums = [5,7,7,8,8,10], target = 6`
+`Output: [-1,-1]`
+```python
+def searchRange(nums: List[int], target: int) -> List[int]:
+        left, right = 0, len(nums) - 1
+        l, r = -1, -1
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                l, r = mid, mid
+                while r < len(nums) - 1 and nums[r + 1] == target:
+                    r += 1
+                while l > 0 and nums[l - 1] == target:
+                    l -= 1
+                break
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return [l, r]
+```
+
 
