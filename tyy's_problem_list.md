@@ -175,3 +175,43 @@ Explanation: A ship capacity of 15 is the minimum to ship all the packages in 5 
 
         return right
 ```
+##### Bit-manipulation
+1. *Sort Integers by The Number of 1 Bits*
+- You are given an integer array arr. Sort the integers in the array in ascending order by the number of 1's in their binary representation and in case of two or more integers have the same number of 1's you have to sort them in ascending order.
+
+Return the array after sorting it.
+Example: 
+`Input: arr = [1024,512,256,128,64,32,16,8,4,2,1]`
+`Output: [1,2,4,8,16,32,64,128,256,512,1024]`
+Explantion: All integers have 1 bit in the binary representation, you should just sort them in ascending order.
+> In this question, we will walk through two key points: python-sort and bitwise operators: this might not be optimal way, but can learn a lot 
+```python
+from functools import cmp_to_key
+class Solution: 
+    def sort(self, a: int, b: int):
+        tmp_a, tmp_b = a, b
+        # make sure the original number will not be affected
+        count_a, count_b = 0, 0
+        while tmp_a or tmp_b:
+            if tmp_a:
+                tmp_a &= (tmp_a - 1)
+                count_a += 1
+            if tmp_b:
+                tmp_b &= (tmp_b - 1)
+                count_b += 1
+        
+        # in cmp_to_key, a python sorting package tool
+        # input: (a, b)
+        # if return > 0 then python sorts it a > b
+        # if return < 0 then python sorts it a < b
+        # if return == 0 then python preserves its relative order
+
+        if count_a != count_b:
+            return count_a - count_b
+        else:
+            return a - b
+        
+    def sort_bit(self, arr: list) -> list:
+        arr.sort(key = cmp_to_key(self.sort))
+        return arr
+```
