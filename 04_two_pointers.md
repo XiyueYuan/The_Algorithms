@@ -208,3 +208,39 @@ def checkZeroOnes(s: str) -> bool:
                 zero = max(zero, i - start)
         return one > zero
 ```
+10. __Number of Equivalent Domino Pairs__
+- Given a list of dominoes, dominoes[i] = [a, b] is equivalent to dominoes[j] = [c, d] if and only if either (a == c and b == d), or (a == d and b == c) - that is, one domino can be rotated to be equal to another domino.
+- Return the number of pairs (i, j) for which 0 <= i < j < dominoes.length, and dominoes[i] is equivalent to dominoes[j].
+
+Example 1:
+
+`Input: dominoes = [[1,2],[2,1],[3,4],[5,6]]`
+`Output: 1`
+
+Example 2:
+`Input: dominoes = [[1,2],[1,2],[1,1],[1,2],[2,2]]`
+`Output: 3`
+> normalize the list via two ways: max/min and combination into a single number
+
+```python
+def numEquivDominoPairs(dominoes: List[List[int]]) -> int:
+    res = 0
+    count = defaultdict(int)
+    for d1, d2 in dominoes:
+        key = (max(d1, d2), min(d1, d2))
+        if key in count:
+            res += count[key]
+        count[key] += 1
+    return res
+# However this approach will increase the time complexity
+#  Optimal below
+def numEquivDominoPairs2(ominoes: List[List[int]]) -> int:
+    res = 0
+    count = defaultdict(int)
+    for d1, d2 in dominoes:
+        key = d1 * 10 + d2 if d1 > d2 else d2 * 10 + d1
+        if key in count:
+            res += count[key]
+        conut[key] += 1
+    return res
+```
