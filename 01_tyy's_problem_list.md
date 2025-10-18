@@ -71,7 +71,7 @@ Example1:
 `Output: [[1,2,3,4],[13,14,15,8],[9,10,11,12],[5,6,7,16]]`
 
 <p align="center">
-<img src= 'gridexmdrawio.png'
+<img src= 'assets/gridexmdrawio.png'
 width="350"/>
 </p>
 
