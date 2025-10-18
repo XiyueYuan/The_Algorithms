@@ -234,7 +234,7 @@ def numEquivDominoPairs(dominoes: List[List[int]]) -> int:
     return res
 # However this approach will increase the time complexity
 #  Optimal below
-def numEquivDominoPairs2(ominoes: List[List[int]]) -> int:
+def optimal(ominoes: List[List[int]]) -> int:
     res = 0
     count = defaultdict(int)
     for d1, d2 in dominoes:
