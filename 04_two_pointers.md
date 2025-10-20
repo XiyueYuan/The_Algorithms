@@ -244,3 +244,39 @@ def optimal(ominoes: List[List[int]]) -> int:
         conut[key] += 1
     return res
 ```
+11. __Maximum Value of Triplet II__
+
+Example: 
+`Input: nums = [12,6,1,2,7]`
+`Output: 77`
+Explanation: The value of the `triplet (0, 2, 4)` is `(nums[0] - nums[2]) * nums[4] = 77`.
+It can be shown that there are no ordered triplets of indices with a value greater than `77`. 
+
+Example 2:
+`Input: nums = [1,10,3,4,19]`
+`Output: 133`
+Explanation: The value of the `triplet (1, 2, 4)` is `(nums[1] - nums[2]) * nums[4] = 133`.
+It can be shown that there are no ordered triplets of indices with a value greater than `133`.
+
+```python
+def maximumTripletValue(nums: List[int]) -> int:
+
+    pre = list(nums)
+    tmp_pre = 0
+    for i, num in enumerate(nums):
+        tmp_pre = max(num, tmp_pre)
+        pre[i] = tmp_pre
+
+    suf = list(nums)
+    tmp_suf = 0
+    for i in range(len(nums) -1, -1, -1):
+        tmp_suf = max(nums[i], tmp_suf)
+        suf[i] = tmp_suf
+    
+    ans = 0
+    for i in range(1, len(nums) - 1):
+        val = (pre[i - 1] - nums[i]) * suf[i + 1]
+        ans = max(ans, val)
+
+    return ans
+```
