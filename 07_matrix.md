@@ -106,3 +106,29 @@ class Matrix:
 | ↘ **Top-Left → Bottom-Right** | `(i, j) = (0, k)` if `k < n`, else `(k - (n - 1), n - 1)` | `i += 1, j -= 1` | `i - j = const` | ✅ same |
 | ↙ **Top-Right → Bottom-Left** | `(i, j) = (0, n - 1 - k)` if `k < n`, else `(k - (n - 1), 0)` | `i += 1, j -= 1` | `i + j = const` | ✅ same |
 | ↖ **Bottom-Right → Top-Left** | `(i, j) = (m - 1, n - 1 - k)` if `k < n`, else `(m - 1 - (k - (n - 1)), 0)` | `i -= 1, j -= 1` | `i - j = const` | ✅ same |
+
+> Hahahaha.. while debugging relentlessly, a more elegant way is create a `defaultdict` in which stores the element in `key(i + j)` or `key(i - j)`
+
+```python
+matrix = [
+    [1, 2, 3], 
+    [4, 5, 6], 
+    [7, 8, 9], 
+    [10, 11, 12]
+]
+count = defaultdict(list)
+m = len(matrix)
+n = len(matrix[0])
+for i in range(m):
+    for j in range(n):
+        count[i - j].append(matrix[i][j])
+print(count)
+
+# defaultdict(<class 'list'>, 
+# {0: [1, 5, 9], 
+# -1: [2, 6], 
+# -2: [3], 
+# 1: [4, 8, 12], 
+# 2: [7, 11], 
+# 3: [10]})
+```
