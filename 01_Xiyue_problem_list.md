@@ -86,7 +86,29 @@ def reverseSubmatrix(grid: List[List[int]], x: int, y: int, k: int) -> List[List
         l += 1
     return grid
 ```
+4. *498: Diagonal Traverse*
+<p align="center">
+<img src= 'assets/diag1-grid.jpg'
+width="300"/>
+</p>
 
+`Input: mat = [[1,2,3],[4,5,6],[7,8,9]]`
+`Output: [1,2,4,7,5,3,6,8,9]`
+>use dict store all the `(i + j)` pairs
+```python
+def findDiagonalOrder(matrix: List[List[int]]) -> List[int]:
+        count = defaultdict(list)
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                count[i + j].append(matrix[i][j])
+        res = []
+        for key, lst in count.items():
+            if key % 2 == 0:
+                res += list(reversed(lst))
+            else:
+                res += lst
+        return res   
+```
 ##### Binary Search 
 1. *34: Find First and Last Position of Element in Sorted Array*
 - Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
