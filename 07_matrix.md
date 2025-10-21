@@ -132,3 +132,29 @@ print(count)
 # 2: [7, 11], 
 # 3: [10]})
 ```
+2. *Sort Matrix by Diagonals*
+
+<p align="center">
+<img src= 'assets/4052example1drawio.png'
+width="380"/>
+</p>
+
+`Input: grid = [[1,7,3],[9,8,2],[4,5,6]]`
+`Output: [[8,2,3],[9,6,7],[4,5,1]]`
+
+```python
+def sortMatrix(grid: List[List[int]]) -> List[List[int]]:
+        count = defaultdict(list)
+        for i in range(len(grid)):
+            for j in range(len(grid)):
+                count[i - j].append(grid[i][j])
+        for key, lst in count.items():
+            if key < 0:
+                lst.sort()
+            else:
+                lst.sort(reverse = True)
+        for i in range(len(grid)):
+            for j in range(len(grid)):
+                grid[i][j] = count[i - j].pop(0)
+        return grid
+```
