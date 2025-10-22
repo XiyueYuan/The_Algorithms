@@ -266,3 +266,47 @@ def nextGreaterElements(nums: List[int]) -> List[int]:
             stack.append(i)
     return ans 
 ```
+##### Linked List
+1. *Find the Minimum and Maximum Number of Nodes Between Critical Points*
+
+<p align="center">
+<img src= 'assets/a2.png'
+width="350"/>
+</p>
+
+`Input: head = [5,3,1,2,5,1,2]`
+`Output: [1,3]`
+Explanation: There are three critical points:
+- `[5,3,1,2,5,1,2]`: The third node is a local minima because 1 is less than 3 and 2.
+- `[5,3,1,2,5,1,2]`: The fifth node is a local maxima because 5 is greater than 2 and 1.
+- `[5,3,1,2,5,1,2]`: The sixth node is a local minima because 1 is less than 5 and 2.
+The minimum distance is between the fifth and the sixth node. minDistance = 6 - 5 = 1.
+The maximum distance is between the third and the sixth node. maxDistance = 6 - 3 = 3.
+
+> Manipulate index in Linked List
+
+```python
+ def nodesBetweenCriticalPoints(head: Optional[ListNode]) -> List[int]:
+        prev, cur = head, head.next
+        if cur.next:
+            nxt = cur.next
+        else:
+            return [-1, -1]
+
+        index = 1
+        min_distance = float('inf')
+        last_index, first_index = -1, -1
+
+        while nxt:
+            if (cur.val < nxt.val and cur.val < prev.val) or (cur.val > nxt.val and cur.val > prev.val):
+                if first_index == -1:
+                    first_index = index
+                else:
+                   min_distance = min(min_distance, index - last_index)
+                last_index = index 
+            index += 1
+            prev, cur, nxt = cur, nxt, nxt.next
+        if first_index == -1 or last_index == first_index:
+            return [-1, -1]
+        return [min_distance, last_index - first_index]
+```
