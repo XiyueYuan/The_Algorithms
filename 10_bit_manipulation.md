@@ -1,7 +1,9 @@
 ### Bit-manipulation
-For a number with digits \( d_1, d_2, d_3, \dots, d_n \) in base \( k \):
+For a number with digits $(d_1, d_2, \dots, d_n)$ in base $k$:
 
-value = (((d<sub>1</sub>) × k + d<sub>2</sub>) × k + d<sub>3</sub>) × k + ⋯ + d<sub>n</sub>
+$$
+\text{value} = (((d_1) \times k + d_2) \times k + d_3) \times k + \dots + d_n
+$$
 
 *for example:*
 ```python
