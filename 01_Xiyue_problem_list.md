@@ -310,3 +310,32 @@ The maximum distance is between the third and the sixth node. maxDistance = 6 - 
             return [-1, -1]
         return [min_distance, last_index - first_index]
 ```
+2. *Merge In Between Linked Lists*
+- You are given two linked lists: list1 and list2 of sizes n and m respectively.
+- Remove list1's nodes from the ath node to the bth node, and put list2 in their place.
+- The blue edges and nodes in the following figure indicate the result:
+<p align="center">
+<img src= 'assets/fig1.png'
+width="380"/>
+</p>
+
+>the essence of linked list, each traverse variable can only used once
+
+```python
+def mergeInBetween(list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+    before_a = list1
+
+    for _ in range(a - 1):
+        before_a = before_a.next
+    after_b = before_a
+
+    for _ in range(b - a + 2):
+        after_b = after_b.next
+    
+    before_a.next = list2
+    tail = list2
+    while tail.next: # avoid making it None
+        tail = tail.next
+    tail.next = after_b
+    return list1
+```
