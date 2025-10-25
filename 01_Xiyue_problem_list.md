@@ -339,3 +339,24 @@ def mergeInBetween(list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode
     tail.next = after_b
     return list1
 ```
+3. *Insertion Sort List in Linked List*
+```python
+def insertionSortList(head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(float('-inf'), next = head)
+        sorted_tail = head
+        cur = head.next 
+        while cur:
+            if cur.val >= sorted_tail.val:
+                sorted_tail = sorted_tail.next
+                cur = cur.next
+            else:
+                prev = dummy
+                next_process = cur.next
+                while prev.next and prev.next.val < cur.val:
+                    prev = prev.next
+                cur.next = prev.next
+                prev.next = cur
+                sorted_tail.next = next_process
+                cur = next_process
+        return dummy.next
+```
