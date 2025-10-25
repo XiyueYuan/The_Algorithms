@@ -340,6 +340,11 @@ def mergeInBetween(list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode
     return list1
 ```
 3. *Insertion Sort List in Linked List*
+<p align="center">
+<img src= 'assets/Insertion-sort-example-300px.gif'
+width="380"/>
+</p>
+
 ```python
 def insertionSortList(head: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(float('-inf'), next = head)
