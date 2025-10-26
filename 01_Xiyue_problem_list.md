@@ -365,3 +365,49 @@ def insertionSortList(head: Optional[ListNode]) -> Optional[ListNode]:
                 cur = next_process
         return dummy.next
 ```
+3. *Reverse Nodes in K-group*
+<p align="center">
+<img src= 'assets/reverse_ex1.jpg'
+width="380"/>
+</p>
+
+> A detailed explaination 
+<p align="center">
+<img src= 'assets/866b404c6b0b52fa02385e301ee907fc015742c3766c80c02e24ef3a8613e5ad-k个一组翻转链表.png'
+width="380"/>
+</p>
+
+```python
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        dummy = ListNode(next = head)
+        pre, end = dummy, dummy
+        while end.next: 
+            for _ in range(k):
+                end = end.next 
+                if not end:
+                    return dummy.next 
+                    
+            start = pre.next
+            nxt = end.next
+            end.next = None 
+
+            new_head = self.reverse(start)
+            pre.next = new_head
+            start.next = nxt 
+
+            pre = start
+            end = pre
+            
+        return dummy.next 
+
+
+    def reverse(self, head):
+        prev, cur = None, head
+        while cur:
+            nxt = cur.next 
+            cur.next = prev
+            prev = cur
+            cur = nxt 
+        return prev
+```
