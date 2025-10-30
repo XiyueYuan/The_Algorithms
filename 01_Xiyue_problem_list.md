@@ -411,3 +411,32 @@ class Solution:
             cur = nxt 
         return prev
 ```
+##### Tree
+1. *Maximum Average Subtree*
+<p align="center">
+<img src= 'assets/1308_example_1.png'
+width="250"/>
+</p>
+
+`Input: root = [5,6,1]`
+`Output: 6.00000`
+Explanation: 
+- For the node with value = 5 we have an average of (5 + 6 + 1) / 3 = 4.
+- For the node with value = 6 we have an average of 6 / 1 = 6.
+- For the node with value = 1 we have an average of 1 / 1 = 1.
+- So the answer is 6 which is the maximum.
+
+```python
+def maximumAverageSubtree(root: Optional[TreeNode]) -> float:
+        self.res = 0
+        def dfs(root):
+            if not root:
+                return 0, 0
+            l_val, l_cnt = dfs(root.left)
+            r_val, r_cnt = dfs(root.right)
+            self.res = max(self.res, (l_val + r_val + root.val) / (l_cnt + r_cnt + 1))
+            return l_val + r_val + root.val, l_cnt + r_cnt + 1
+
+        root and dfs(root)
+        return self.res
+```
