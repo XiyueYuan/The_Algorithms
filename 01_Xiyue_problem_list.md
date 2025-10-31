@@ -109,6 +109,33 @@ def findDiagonalOrder(matrix: List[List[int]]) -> List[int]:
                 res += lst
         return res   
 ```
+5. *Rotate Array*
+- Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+`Input: nums = [1,2,3,4,5,6,7], k = 3`
+`Output: [5,6,7,1,2,3,4]`
+Explanation:
+rotate 1 steps to the right: `[7,1,2,3,4,5,6]`
+rotate 2 steps to the right: `[6,7,1,2,3,4,5]`
+rotate 3 steps to the right: `[5,6,7,1,2,3,4]`
+> Tackle in O(n) efficiency, only traverse 3 times
+```python
+def rotate(nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        def f(start, end, nums):
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                end -= 1
+                start += 1
+        
+        k %= len(nums)
+        f(0, len(nums) - 1, nums)
+        f(0, k - 1, nums)
+        f(k, len(nums) - 1, nums)
+```
+
+
 ##### Binary Search 
 1. *34: Find First and Last Position of Element in Sorted Array*
 - Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
