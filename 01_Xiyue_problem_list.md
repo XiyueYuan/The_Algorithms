@@ -134,6 +134,37 @@ def rotate(nums: List[int], k: int) -> None:
         f(0, k - 1, nums)
         f(k, len(nums) - 1, nums)
 ```
+6. *Trapping Rain Water*
+
+Example: 
+`Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]`
+`Output: 6`
+Explanation: The above elevation map (black section) is represented by array `[0,1,0,2,1,0,1,3,2,1,2,1]`. In this case, 6 units of rain water (blue section) are being trapped.
+<p align="center">
+<img src= 'assets/rainwatertrap.png'
+width="300"/>
+</p>
+> Prefix and suffix
+
+```python
+def trap(height: List[int]) -> int:
+        pre = [0] * len(height)
+        pre_max = 0
+        for i, num in enumerate(height):
+            pre_max = max(pre_max, num)
+            pre[i] = pre_max
+
+        suf = [0] * len(height)
+        suf_max = 0
+        for i in range(len(height) - 1, -1, -1):
+            suf_max = max(suf_max, height[i])
+            suf[i] = suf_max
+
+        res = 0
+        for h, p, s in zip(height, pre, suf):
+            res += min(s, p) - h
+        return res
+```
 
 ##### Binary Search 
 1. *34: Find First and Last Position of Element in Sorted Array*
