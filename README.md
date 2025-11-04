@@ -1,5 +1,10 @@
 ### My Algorithms Practice Repo
-This repository is updated from time to time.
+This repository documents my personal roadmap for practicing algorithm problems. It also includes my own curated list of favorite problems. Since I started learning data structures, I’ve developed a strong interest in algorithmic thinking — every problem feels like a new intellectual challenge!
+
+<p align="center">
+<img src= 'assets/Figure_1.png'
+width=""/>
+</p>
 
 #### Algorithm Roadmap
 ```mermaid
