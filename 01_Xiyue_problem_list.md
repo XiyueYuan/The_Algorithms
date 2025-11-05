@@ -165,6 +165,26 @@ def trap(height: List[int]) -> int:
             res += min(s, p) - h
         return res
 ```
+7. *Longest Consecutive Sequence*
+
+`Input: nums = [100,4,200,1,3,2]`
+`Output: 4`
+Explanation: The longest consecutive elements sequence is `[1, 2, 3, 4]`. Therefore its length is 4.
+> Run in O(n) time
+
+```python
+def longestConsecutive(nums: List[int]) -> int:
+    res = 0
+    count = set(nums)
+    for num in count:
+        if num - 1 not in count:
+            cur = 1
+            while num + 1 in count:
+                cur += 1
+                num += 1
+            res  = max(res, cur)
+    return res
+```
 
 ##### Binary Search 
 1. *34: Find First and Last Position of Element in Sorted Array*
