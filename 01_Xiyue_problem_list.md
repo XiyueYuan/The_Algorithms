@@ -343,6 +343,22 @@ def nextGreaterElements(nums: List[int]) -> List[int]:
             stack.append(i)
     return ans 
 ```
+2. *Merge Intervals*
+`Input: intervals = [[1,3],[2,6],[8,10],[15,18]]`
+`Output: [[1,6],[8,10],[15,18]]`
+Explanation: Since intervals `[1,3]` and `[2,6]` overlap, merge them into `[1,6]`.
+```python
+def merge(intervals: List[list]) -> List[list]:
+    intervals = sorted(intervals, keys = lambda x: x[0])
+    res = []
+    for itv in intervals:
+        if not res or res[-1][1] < itv[0]:
+            res.append(itv)
+        else:
+            res[-1][1] = max(res[-1][1], itv[1])
+    return res
+```
+
 ##### Linked List
 1. *Find the Minimum and Maximum Number of Nodes Between Critical Points*
 
