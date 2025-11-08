@@ -185,6 +185,50 @@ def longestConsecutive(nums: List[int]) -> int:
             res  = max(res, cur)
     return res
 ```
+8. *Insert Interval*
+
+Example 1:
+`Input: intervals = [[1,3],[6,9]], newInterval = [2,5]`
+`Output: [[1,5],[6,9]]`
+
+Example 2:
+`Input: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]`
+`Output: [[1,2],[3,10],[12,16]]`
+
+Explanation: Because the new interval `[4,8]` overlaps with `[3,5],[6,7],[8,10]`.
+> Using Algorithm contains O(n) time complexity
+
+```python
+def merge(intervals, newInterval):
+    res = []
+    i = 0
+    while i < len(intervals) and intervals[i][1] < newInterval[0]:
+        res.append(intervals[i])
+        i += 1
+    while i < len(intervals) and intervals[i][0] <= newInterval[1]:
+        newInterval[0] = min(intervals[i][0], newInterval[0])
+        newInterval[1] = max(intervals[i][1], newInterval[1])
+        i += 1
+    while i < len(intervals):
+        res.append(intervals[i])
+        i += 1
+    return res
+```
+> If newInterval is a `List[List[int]]`, what's the optimal way to solve with lowest time complexity
+
+> Time complexity: O(m + n) log (m + n), better than the previous one, the last one runs O(m * n)
+```python
+def merge_multiple(intervals: List[List[int]], newInterval: List[List[int]]):
+    intervals.extend(newInterval)
+    intervals = sorted(intervals, key = lambda x: x[0])
+    res = []
+    for itv in intervals:
+        if not res or res[-1][1] < itv[0]:
+            res.append(itv)
+        else:
+            res[-1][1] = max(itv[1], res[-1][1])
+    return res
+```
 
 ##### Binary Search 
 1. *34: Find First and Last Position of Element in Sorted Array*
