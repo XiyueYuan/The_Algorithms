@@ -2,8 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 date = {
-    'date': ['2025-09-01', '2025-09-15', '2025-10-01', '2025-10-15', '2025-11-01'], 
-    'count': [0, 99, 163, 229, 275]
+    'date': ['2025-09-01', '2025-09-15', '2025-10-01', '2025-10-15', '2025-11-01', '2025-11-15'], 
+    'count': [0, 99, 163, 229, 275, 300]
 }
 df = pd.DataFrame(date)
 df['date'] = pd.to_datetime(df['date'])
