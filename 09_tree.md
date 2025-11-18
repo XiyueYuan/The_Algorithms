@@ -213,6 +213,17 @@ class Solution:
             res.append(root.val)
             self.inorder(root.right, res)
 ```
+> Optimal
+```python
+def isValidBST(root: Optional[TreeNode]) -> bool:
+    def dfs(node, low, high):
+        if not node:
+            return True
+        if not (low < node.val < high):
+            return False
+        return dfs(node.left, low, node.val) and dfs(node.right, node.val, high)
+    return dfs(root, float('-inf'), float('inf'))
+```
 2. *Search in a Binary Search Tree*
 ```python
 # Iteration 
