@@ -56,3 +56,17 @@ def rightSideView(root: Optional[TreeNode]) -> List[int]:
     dfs(root, res, level)
     return res
 ```
+4. Return if there is any sum of a sublist is equal to target
+> regardless of time complexity, use recursion 
+
+```python
+def sublist(nums, target):
+    if target == 0:
+        return True
+    if not nums:
+        return False
+    x = sublist(nums[1:], target - nums[0])
+    y = sublist(nums[1:], target)
+    return x or y
+```
+> Time complexity: O(2^n)
