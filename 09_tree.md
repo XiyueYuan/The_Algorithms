@@ -361,3 +361,43 @@ class Solution:
 
         return root
 ```
+
+7. *Construct Prefix Trie*
+
+```python
+class Node:
+    __slots__ = 'son', 'end'
+
+    def __init__(self):
+        self.son = {}
+        self.end = False
+
+class Trie:
+
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for c in word:
+            if c not in node.son:
+                node.son[c] = Node()
+            node = node.son[c]
+        node.end = True
+
+    def search(self, word: str) -> bool:
+        node = self.prefix(word)
+        return node != None and node.end
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.prefix(prefix)
+        return node != None
+
+    def prefix(self, word: str):
+        node = self.root
+        for c in word:
+            if c not in node.son:
+                return None
+            node = node.son[c]
+        return node
+```
