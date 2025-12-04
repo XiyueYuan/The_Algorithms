@@ -401,3 +401,311 @@ class Trie:
             node = node.son[c]
         return node
 ```
+
+### An entire trie
+
+```python
+
+class Trie:
+    """
+    Class for representing tries
+    """
+
+    def __init__(self, root):
+        '''
+        Constructor
+
+        Parameters:
+         root : str (a character, but Python does not have a "char" type)
+
+        Initialize root to given char, empty dict of children, final to False.
+        '''
+        self.root = root
+        self.children = {}
+        self.final = False
+
+    def add(self, word):
+        '''
+        Add the word to the trie.
+
+        Parameters:
+	     word : str
+
+        Returns: (does not return a value)
+        '''
+        node = self
+        for c in word:
+          if c not in node.children:
+            node.children[c] = Trie(c)
+          node = node.children[c]
+        node.final = True
+
+    def is_word(self, word):
+        '''
+        Check presence of given word in the trie.
+
+        Parameters:
+         word : str
+
+        Returns: boolean
+        '''
+        node = self
+        for c in word:
+          if c not in node.children:
+            return False
+          node = node.children[c]
+        return node.final 
+
+    def list_words(self):
+        '''
+        Return all the words in the trie. Returned list not guaranteed
+        in any particular order.
+
+        Parameters:
+         none
+
+        Returns: list[str]
+        '''
+        res = []
+        def dfs(node, pre):
+          if node.final:
+            res.append(pre)
+          for c in node.children:
+            dfs(node.children[c], pre + c)
+        dfs(self, '')
+        return res
+
+    def num_words(self):
+        '''
+        Return the number of words in the trie.
+
+        Parameters:
+          none
+
+        Returns: int
+        '''
+        count = 0
+        def dfs(node):
+          nonlocal count
+          if node.final:
+            count += 1
+          for c in node.children:
+            dfs(node.children[c])
+        dfs(self)
+        return count
+
+
+    def complete(self, prefix):
+        '''
+        Return all completions given prefix. The returned list is not
+        guaranteed to be in any particular order.
+
+        Parameters:
+          prefix : str
+
+        Returns: list[str]
+        '''
+        res = []
+        return self._compl(prefix, res, "")
+
+    def _compl(self, prefix, res, acc):
+        '''
+        Private method. Return all completions given prefix. The
+        parameter acc stores the string seen thus far in traversal of
+        the trie. The returned list is not guaranteed to be in any
+        particular order.
+
+        Parameters:
+          prefix : str
+          acc : str
+
+        Returns: list[str]
+        '''
+        node = self
+        for c in prefix:  
+            if c not in node.children:
+                return []  
+            node = node.children[c]
+            acc += c
+
+        def dfs(n, acc):
+            if n.final:
+                res.append(acc)
+            for ch in n.children:
+                dfs(n.children[ch], acc + ch)
+        dfs(node, acc)
+        return res
+
+
+    def num_starting(self, prefix):
+        '''
+        Return the number of completions of the given prefix.
+
+        Parameters:
+          prefix : str
+
+        Returns: int
+        '''
+        node = self
+        for c in prefix:
+          if c not in node.children:
+            return 0
+          node = node.children[c]
+        return self.num_words()
+
+    def num_next(self, prefix):
+        '''
+        Return the number of next letters given prefix.
+
+        Parameters:
+          prefix : str
+
+        Returns: int
+        '''
+        node = self
+        for c in prefix:
+          if c not in node.children:
+            return 0
+          node = node.children[c]
+        return len(node.children)
+
+
+class TrieSpeller:
+    """
+    Class for a trie-based speller
+    """
+
+    def __init__(self):
+        '''
+        Constructor
+
+        Parameters:
+          none
+
+        Initialize dictionary of empty tries, one per letter.
+        '''
+        self.tries = {}
+        for char in 'abcdefghijklmnopqrstuvwxyz':
+            self.tries[char] = Trie(char)
+
+    def add(self, word):
+        '''
+        Add the word to the trie if it consists only of lowercase
+        letters.
+
+        Parameters:
+          word : str
+
+        Returns: (does not return a value)
+        '''
+        if word.islower() and word.isalpha():
+          first = word[0]
+          if first in self.tries:
+            self.tries[first].add(word)
+        
+    def add_from_file(self, filename):
+        '''
+        Read the named file, add words (one per line in file).
+
+        Parameters:
+          filename : str
+
+        Returns: (does not return a value)
+        '''
+        try:
+          with open(filename, 'r') as f:
+            for line in f:
+              word = line.strip()
+              self.add(word)
+        except:
+          print('file not found')
+
+    def is_word(self, word):
+        '''
+        Check presence of given word in the object.
+
+        Parameters:
+          word : str
+
+        Returns: boolean
+        '''
+      
+        first = word[0]
+        if first in self.tries:
+          return self.tries[first].is_word(word)
+        return False
+
+    def complete(self, prefix):
+        '''
+        Return all completions given prefix. The returned list is not
+        guaranteed to be in any particular order.
+
+        Parameters:
+          prefix : str
+
+        Returns: list[str]
+        '''
+        first = prefix[0]
+        if first in self.tries:
+          return self.tries[first].complete(prefix)
+        return []
+
+
+    def num_starting(self, prefix):
+        '''
+        Return the number of completions given prefix.
+
+        Parameters:
+          prefix : str
+
+        Returns: int
+        '''
+        first = prefix[0]
+        if first in self.tries:
+          return self.tries[first].num_starting(prefix)
+        return 0
+
+    def num_next(self, prefix):
+        '''
+        Return the number of next letters given prefix.
+
+        Parameters:
+          prefix : str
+
+        Returns: int
+        '''
+        first = prefix[0]
+        if first in self.tries:
+          return self.tries[first].num_next(prefix)
+        return 0
+
+    def list_words(self):
+        '''
+        Return all the words in the object. Returned list not
+        guaranteed in any particular order.
+
+        Parameters:
+          none
+
+        Returns: list[str]
+        '''
+        res = []
+        for trie in self.tries.values():
+          res.extend(trie.list_words())
+        return res
+  
+
+    def num_words(self):
+        '''
+        Return the number of words in the object.
+
+        Parameters:
+          none
+
+        Returns: int
+        '''
+        count = 0
+        for tree in self.tries.values():
+          count += tree.num_words()
+        return count
+```
