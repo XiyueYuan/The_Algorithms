@@ -70,3 +70,23 @@ def sublist(nums, target):
     return x or y
 ```
 > Time complexity: O(2^n)
+
+5. *Tower of Hanoi*
+
+```python
+def tower(n):
+    count = 0
+    def rec(n, start, aux, end):
+        nonlocal count 
+        if n == 1:
+            print(f"Move 1 from {start} to {end}")
+            count += 1
+            return
+        
+        rec(n - 1, start, end, aux)
+        print(f"Move {n} from {start} to {end}")
+        count += 1
+        rec(n - 1, aux, start, end)
+    rec(n, "A", "B", "C")
+    print(count)
+``` 
