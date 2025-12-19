@@ -16,6 +16,31 @@ def trap(height: List[int]) -> int:
         stack.append(i)
     return res
 ```
+2321. Maximum Score Of Spliced Array
+```python
+def maximumsSplicedArray(nums1: List[int], nums2: List[int]) -> int:
+        # diff = num1 - num2
+        # num1_max = num2 + diff(max)
+        # num2_max = num1 - diff(min)
+
+        diff = [0] * len(nums1)
+        for i in range(len(nums1)):
+            diff[i] = nums1[i] - nums2[i]
+
+        tmp1 = tmp2 = smax = smin = diff[0]
+        for i in range(1, len(diff)):
+            tmp1 = max(tmp1 + diff[i], diff[i])
+            smax = max(tmp1, smax)
+
+            tmp2 = min(tmp2 + diff[i], diff[i])
+            smin = min(tmp2, smin)
+        return max(
+            sum(nums1), 
+            sum(nums2), 
+            sum(nums2) + smax,
+            sum(nums1) - smin
+        )
+```
 84. Largest Rectangle in Histogram
 239. Sliding Window Maximum
 135. Candy
