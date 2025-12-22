@@ -60,7 +60,22 @@ def minFallingPathSum(self, grid: List[List[int]]) -> int:
                 dp[i][j] = grid[i][j] + min2 
     return min(dp[-1])
 ```
+> sentinel increases robutness
 84. Largest Rectangle in Histogram
+```python
+def largestRectangleArea(heights: List[int]) -> int:
+    heights = [0] + heights + [0]
+    stack = []
+    res = 0
+    for i, num in enumerate(heights):
+        while stack and heights[stack[-1]] > num:
+            tmp = stack.pop()
+            height = heights[tmp]
+            width = i - stack[-1] - 1
+            res = max(res, height * width)
+        stack.append(i)
+    return res
+```
 239. Sliding Window Maximum
 135. Candy
 316. Remove Duplicate Letters
