@@ -19,27 +19,46 @@ def trap(height: List[int]) -> int:
 2321. Maximum Score Of Spliced Array
 ```python
 def maximumsSplicedArray(nums1: List[int], nums2: List[int]) -> int:
-        # diff = num1 - num2
-        # num1_max = num2 + diff(max)
-        # num2_max = num1 - diff(min)
+    # diff = num1 - num2
+    # num1_max = num2 + diff(max)
+    # num2_max = num1 - diff(min)
 
-        diff = [0] * len(nums1)
-        for i in range(len(nums1)):
-            diff[i] = nums1[i] - nums2[i]
+    diff = [0] * len(nums1)
+    for i in range(len(nums1)):
+        diff[i] = nums1[i] - nums2[i]
 
-        tmp1 = tmp2 = smax = smin = diff[0]
-        for i in range(1, len(diff)):
-            tmp1 = max(tmp1 + diff[i], diff[i])
-            smax = max(tmp1, smax)
+    tmp1 = tmp2 = smax = smin = diff[0]
+    for i in range(1, len(diff)):
+        tmp1 = max(tmp1 + diff[i], diff[i])
+        smax = max(tmp1, smax)
 
-            tmp2 = min(tmp2 + diff[i], diff[i])
-            smin = min(tmp2, smin)
-        return max(
-            sum(nums1), 
-            sum(nums2), 
-            sum(nums2) + smax,
-            sum(nums1) - smin
-        )
+        tmp2 = min(tmp2 + diff[i], diff[i])
+        smin = min(tmp2, smin)
+    return max(
+        sum(nums1), 
+        sum(nums2), 
+        sum(nums2) + smax,
+        sum(nums1) - smin
+    )
+```
+1289. Minimum Falling Path Sum II
+> Non-zero shifts = track two minimums 
+```python
+def minFallingPathSum(self, grid: List[List[int]]) -> int:
+    n = len(grid)
+    if n == 1:
+        return grid[0][0]
+    dp = [grid[0]] + [[0] * n for _ in range(n - 1)]
+    for i in range(1, n):
+        min1, min2 = 100, 100
+        tmp = sorted(dp[i - 1])
+        min1, min2 = tmp[0], tmp[1]
+        for j in range(n):
+            if dp[i - 1][j] != min1:
+                dp[i][j] = grid[i][j] + min1
+            else:
+                dp[i][j] = grid[i][j] + min2 
+    return min(dp[-1])
 ```
 84. Largest Rectangle in Histogram
 239. Sliding Window Maximum
