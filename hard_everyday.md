@@ -77,6 +77,20 @@ def largestRectangleArea(heights: List[int]) -> int:
     return res
 ```
 239. Sliding Window Maximum
+```python
+def maxSlidingWindow(nums: List[int], k: int) -> List[int]:
+    q = deque()
+    res = []
+    for i, num in enumerate(nums):
+        while q and nums[q[-1]] <= num:
+            q.pop() 
+        q.append(i)
+        if q[0] <= i - k:
+            q.popleft()
+        if i >= k - 1:
+            res.append(nums[q[0]])
+    return res
+```
 135. Candy
 316. Remove Duplicate Letters
 410. Split Array Largest Sum
